@@ -4,13 +4,22 @@ import { ticketsAxios } from "../axios/axios";
 
 const SET_TICKETS = "SET_TICKETS";
 const SET_SEARCH_ID = "SET_SEARCH_ID";
-const SET_IS_LOADING = "SET_IS_LOADING"
+const SET_IS_LOADED = "SET_IS_LOADED";
+const CHANGE_SORTING = "CHANGE_SORTING";
+const CHANGE_FILTER = "CHANGE_FILTER";
 
 let initState = {
     tickets: [],
     searchId: null,
-    isLoading: false,
-    stop:false
+    isLoaded: false,
+    filter: {
+        all: true,
+        noneTransfer: false,
+        oneTransfer: false,
+        twoTransfer: false,
+        threeTransfer: false
+    },
+    sorting: "cheap"
 };
 
 let reducer = (state = initState, action) => {
@@ -24,28 +33,41 @@ let reducer = (state = initState, action) => {
             return {
                 ...state,
                 tickets: action.data,
-                stop: true
             }
-        case SET_IS_LOADING:
+        case SET_IS_LOADED:
             return {
                 ...state,
-                ifLoading: action.isLoading
+                isLoaded: true
             }
+        case CHANGE_SORTING:
+            return {
+                ...state,
+                sorting: action.sorting
+            }
+        case CHANGE_FILTER:
+                return {
+                    ...state,
+                    filter: {
+                        ...state.filter,
+                        ...action.filter
+                    }
+                }
         default:
             return state
     }
 }
 
-export const setTickets = (data) => ({ type: SET_TICKETS, data });
-export const setSearchId = (searchId) => ({ type: SET_SEARCH_ID, searchId });
-export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading})
+const setTickets = (data) => ({ type: SET_TICKETS, data });
+const setSearchId = (searchId) => ({ type: SET_SEARCH_ID, searchId });
+const setIsLoaded = () => ({type: SET_IS_LOADED});
+export const changeSorting = (sorting) => ({type: CHANGE_SORTING, sorting});
+export const changeFilter = (filter) => ({type: CHANGE_FILTER, filter})
 
 export const getTickets = (searchId) => (dispatch) => {
-    dispatch(setIsLoading(true))
     ticketsAxios.getTickets(searchId)
         .then(data => {
             dispatch(setTickets(data.tickets))
-            dispatch(setIsLoading(false))
+            dispatch(setIsLoaded())
         })
 }
 

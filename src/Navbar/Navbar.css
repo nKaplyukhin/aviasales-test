@@ -1,0 +1,74 @@
+.navbar { 
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 232px;
+    height: 252px;
+  }
+  .navbar__header {
+    width: 192px;
+    margin: 20px;
+    margin-bottom: 10px;
+  }
+  .navbar__title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+    /* identical to box height, or 100% */
+    color: #4A4A4A;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  
+  .navbar-filter__list__item {
+    padding-left: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+  .navbar-filter__list__item:hover {
+    background: #F1FCFF;
+  }
+  .navbar-filter__check {
+    display: flex;
+    cursor: pointer;
+  }
+  .navbar-filter__check input {
+    width: 20px;
+    height: 20px;
+    opacity: 0%;
+    margin-right: 10px;
+  }
+  .navbar-filter__text{
+    position: relative;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    color: #4A4A4A;
+    list-style-type: none;
+    vertical-align: middle;
+  }
+  .navbar-filter__text:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border: 1px solid #9ABBCE;
+    box-sizing: border-box;
+    border-radius: 2px;
+    left: -30px;
+  }
+  .navbar-filter__check input:checked + .navbar-filter__text:before {
+    border: 1px solid #2196F3;
+    content: '\2714';
+    font-style: normal;
+    font-size: 15px;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    color: #2196F3;
+  }
