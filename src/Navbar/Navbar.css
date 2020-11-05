@@ -44,13 +44,12 @@
   }
   .navbar-filter__text{
     position: relative;
-    font-family: Open Sans;
+    /* font-family: Open Sans; */
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
     color: #4A4A4A;
     list-style-type: none;
-    vertical-align: middle;
   }
   .navbar-filter__text:before {
     content: '';

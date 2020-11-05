@@ -1,33 +1,30 @@
 import React from "react"
 import { connect } from 'react-redux';
 import './App.css';
-import Tickets from './Tickets/Tickets';
 import { getSearchId, getTickets, changeSorting, changeFilter } from "./redux/reduxStore";
-import { getTicketsSelector, getFilter, getTicketsFilter } from "./redux/ticketsSelector"
+import { getFilter, getTicketsFilter } from "./redux/ticketsSelector"
 import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
+import TicketsContainer from "./Tickets/TicketsContainer";
 
 class App extends React.Component {
   componentDidMount() {
-    if (!this.props.searchId)
-      this.props.getSearchId()
+    this.props.getSearchId()
   }
   render() {
-    if (!this.props.searchId) return <div></div>
     return (
       <div className="App">
         <Header />
         <div className="main">
-
           <Navbar filter={this.props.filter}
-            changeFilter={this.props.changeFilter}/>
-
-          <Tickets tickets={this.props.tickets}
-            searchId={this.props.searchId}
-            isLoaded={this.props.isLoaded}
-            getTickets={this.props.getTickets} 
-            changeSorting={this.props.changeSorting}
-            sorting={this.props.sorting}/>
+            changeFilter={this.props.changeFilter} />
+          {this.props.searchId
+            && <TicketsContainer tickets={this.props.tickets}
+              searchId={this.props.searchId}
+              getTickets={this.props.getTickets}
+              changeSorting={this.props.changeSorting}
+              sorting={this.props.sorting}
+              initialSuccess={this.props.initialSuccess} />}
         </div>
       </div>
     );
@@ -39,7 +36,7 @@ let mapStateToProps = (state) => {
     tickets: getTicketsFilter(state),
     filter: getFilter(state),
     searchId: state.searchId,
-    isLoaded: state.isLoaded,
+    initialSuccess: state.initialSuccess,
     sorting: state.sorting
   }
 }

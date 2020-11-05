@@ -7,9 +7,6 @@ let instance =  axios.create({
 export const ticketsAxios = {
     getTickets: (searchId) => {
         return instance.get(`tickets?searchId=${searchId}`)
-            .then(response => {
-                return response.data
-            })
     },
     getSearchId: () => {
         return instance.get(`search `)

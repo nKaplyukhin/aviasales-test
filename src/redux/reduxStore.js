@@ -4,14 +4,14 @@ import { ticketsAxios } from "../axios/axios";
 
 const SET_TICKETS = "SET_TICKETS";
 const SET_SEARCH_ID = "SET_SEARCH_ID";
-const SET_IS_LOADED = "SET_IS_LOADED";
+const INITIAL_SUCCESS = "INITIAL_SUCCESS";
 const CHANGE_SORTING = "CHANGE_SORTING";
 const CHANGE_FILTER = "CHANGE_FILTER";
 
 let initState = {
     tickets: [],
     searchId: null,
-    isLoaded: false,
+    initialSuccess: false,
     filter: {
         all: true,
         noneTransfer: false,
@@ -34,10 +34,10 @@ let reducer = (state = initState, action) => {
                 ...state,
                 tickets: action.data,
             }
-        case SET_IS_LOADED:
+        case INITIAL_SUCCESS:
             return {
                 ...state,
-                isLoaded: true
+                initialSuccess: true
             }
         case CHANGE_SORTING:
             return {
@@ -45,13 +45,13 @@ let reducer = (state = initState, action) => {
                 sorting: action.sorting
             }
         case CHANGE_FILTER:
-                return {
-                    ...state,
-                    filter: {
-                        ...state.filter,
-                        ...action.filter
-                    }
+            return {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    ...action.filter
                 }
+            }
         default:
             return state
     }
@@ -59,23 +59,21 @@ let reducer = (state = initState, action) => {
 
 const setTickets = (data) => ({ type: SET_TICKETS, data });
 const setSearchId = (searchId) => ({ type: SET_SEARCH_ID, searchId });
-const setIsLoaded = () => ({type: SET_IS_LOADED});
-export const changeSorting = (sorting) => ({type: CHANGE_SORTING, sorting});
-export const changeFilter = (filter) => ({type: CHANGE_FILTER, filter})
+const initialSuccess = () => ({ type: INITIAL_SUCCESS });
+export const changeSorting = (sorting) => ({ type: CHANGE_SORTING, sorting });
+export const changeFilter = (filter) => ({ type: CHANGE_FILTER, filter });
 
-export const getTickets = (searchId) => (dispatch) => {
-    ticketsAxios.getTickets(searchId)
-        .then(data => {
-            dispatch(setTickets(data.tickets))
-            dispatch(setIsLoaded())
-        })
+export const getTickets = searchId => async dispatch => {
+    let response = await ticketsAxios.getTickets(searchId);
+    if (response.status === 200) {
+        dispatch(initialSuccess());
+        dispatch(setTickets(response.data.tickets));
+    }
+    else alert("ОШИБКА!!! Перезагрузите страницу")
 }
-
-export const getSearchId = () => (dispatch) => {
-        return ticketsAxios.getSearchId()
-        .then(data => {
-                dispatch(setSearchId(data.searchId));
-        })
+export const getSearchId = () => async dispatch => {
+    let data = await ticketsAxios.getSearchId();
+    dispatch(setSearchId(data.searchId));
 }
 
 export default createStore(reducer, applyMiddleware(thunk))
