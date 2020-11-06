@@ -48,7 +48,7 @@
 }
 
 .route__title {
-    font-family: Open Sans;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -59,7 +59,7 @@
 }
 
 .route__text {
-    font-family: Open Sans;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 14px;

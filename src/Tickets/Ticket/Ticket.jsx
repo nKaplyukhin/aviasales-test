@@ -22,7 +22,6 @@ let Ticket = (props) => {
 }
 
 let RouteInfo = (props) => {
-
     let dateOpen = new Date(props.date)
     let dateClose = new Date(dateOpen.getTime() + (props.duration * 1000 * 60))
 

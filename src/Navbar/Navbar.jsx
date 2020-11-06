@@ -69,6 +69,7 @@ let ListItem = ({ filter, changeFilter, text, filterData }) => {
       <label className="navbar-filter__check">
         <input type="checkbox" checked={filter}
           onChange={() => { addFilter(filterData) }} />
+        <div className="navbar-filter__check-button"/>
         <div className="navbar-filter__text">{text}</div>
       </label>
     </li>

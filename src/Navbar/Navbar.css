@@ -12,12 +12,11 @@
     margin-bottom: 10px;
   }
   .navbar__title {
-    font-family: Open Sans;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
     line-height: 12px;
-    /* identical to box height, or 100% */
     color: #4A4A4A;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -35,6 +34,7 @@
   .navbar-filter__check {
     display: flex;
     cursor: pointer;
+    position: relative;
   }
   .navbar-filter__check input {
     width: 20px;
@@ -44,30 +44,38 @@
   }
   .navbar-filter__text{
     position: relative;
-    /* font-family: Open Sans; */
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: normal;
     font-size: 13px;
     color: #4A4A4A;
     list-style-type: none;
   }
-  .navbar-filter__text:before {
-    content: '';
+  .navbar-filter__check-button {
     width: 20px;
     height: 20px;
     position: absolute;
     border: 1px solid #9ABBCE;
     box-sizing: border-box;
     border-radius: 2px;
-    left: -30px;
+    left: 0px;
   }
-  .navbar-filter__check input:checked + .navbar-filter__text:before {
-    border: 1px solid #2196F3;
-    content: '\2714';
-    font-style: normal;
-    font-size: 15px;
-    line-height: 16px;
-    text-align: center;
-    vertical-align: middle;
-    color: #2196F3;
+  .navbar-filter__check-button::after {
+    content: "";
+    border-color:  #0c73fe;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    height: 8px;
+    left: 6px;
+    position: absolute;
+    top: 3px;
+    transform: rotate(45deg);
+    width: 4px;
+    transition-duration: .1s;
+    transition-property: border-color;
+    transition-timing-function: cubic-bezier(.33,.96,.49,1.01);
+    opacity: 0;
+  }
+  .navbar-filter__check input:checked + .navbar-filter__check-button::after {
+    opacity: 100%;
   }
