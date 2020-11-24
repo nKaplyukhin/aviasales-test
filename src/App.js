@@ -10,7 +10,29 @@ import TicketsContainer from "./Tickets/TicketsContainer";
 class App extends React.Component {
   componentDidMount() {
     this.props.getSearchId()
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset >= this.state.scrollHeight)
+          this.setState({
+            size: this.state.size+25
+          })
+    })
   }
+  state = {
+    scrollHeight: document.documentElement.offsetHeight-window.innerHeight,
+    size: 25
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.tickets.length !== this.props.tickets.length
+      || prevState.size !== this.state.size) {
+      console.log("update App")
+      this.setState({
+        scrollHeight: document.documentElement.offsetHeight-window.innerHeight
+      })
+    }
+    console.log(this.state.scrollHeight)
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -24,7 +46,10 @@ class App extends React.Component {
               getTickets={this.props.getTickets}
               changeSorting={this.props.changeSorting}
               sorting={this.props.sorting}
-              initialSuccess={this.props.initialSuccess} />}
+              initialSuccess={this.props.initialSuccess}
+              scrollHeight={this.state.scrollHeight}
+              size={this.state.size}
+            />}
         </div>
       </div>
     );

@@ -14,7 +14,9 @@ class TicketsContainer extends React.Component {
             <Tickets tickets={this.props.tickets}
                 sorting={this.props.sorting}
                 changeSorting={this.changeSorting} 
-                initialSuccess={this.props.initialSuccess}/>
+                initialSuccess={this.props.initialSuccess}
+                scrollHeight={this.props.scrollHeight}
+                size={this.props.size}/>
         )
     }
 }

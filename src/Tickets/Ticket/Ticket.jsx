@@ -14,8 +14,7 @@ let Ticket = (props) => {
                 </div>
             </div>
             <div className="route-block">
-                <RouteInfo {...props.segments[0]} />
-                <RouteInfo {...props.segments[1]} />
+                {props.segments.map((segment, index) => <RouteInfo key={index} {...segment} />)}
             </div>
         </div>
     )
