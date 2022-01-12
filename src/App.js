@@ -24,12 +24,10 @@ class App extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.tickets.length !== this.props.tickets.length
       || prevState.size !== this.state.size) {
-      console.log("update App")
       this.setState({
         scrollHeight: document.documentElement.offsetHeight-window.innerHeight
       })
     }
-    console.log(this.state.scrollHeight)
   }
 
 
